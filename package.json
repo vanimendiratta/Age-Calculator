@@ -1,0 +1,31 @@
+{
+  "name": "age-calculator",
+  "version": "2.0.0",
+  "description": "A precision calendar-accurate age calculator with life statistics, next birthday countdown, zodiac insights, and modern responsive UI.",
+  "type": "module",
+  "main": "src/calculator.js",
+  "scripts": {
+    "test": "node --test tests/*.test.js",
+    "test:watch": "node --test --watch tests/*.test.js",
+    "start": "npx -y serve ."
+  },
+  "keywords": [
+    "age-calculator",
+    "date-calculator",
+    "vanilla-js",
+    "chronological-age",
+    "birthday-countdown",
+    "life-statistics",
+    "javascript"
+  ],
+  "author": "Vani Mendiratta",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vanimendiratta/Age-Calculator.git"
+  },
+  "bugs": {
+    "url": "https://github.com/vanimendiratta/Age-Calculator/issues"
+  },
+  "homepage": "https://github.com/vanimendiratta/Age-Calculator#readme"
+}
