@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Precision Age Calculator — Chronological Age & Life Analytics</title>
+  <meta name="description" content="Calculate your exact chronological age in years, months, and days with calendar precision. Track your next birthday countdown, total lifetime statistics, and astrological signs.">
+  <meta name="keywords" content="age calculator, birthday countdown, life statistics, chronological age, zodiac calculator">
+  <meta name="author" content="Vani Mendiratta">
+
+  <!-- Open Graph / Meta -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Precision Age Calculator & Life Analytics">
+  <meta property="og:description" content="Instant calendar-accurate age calculation, birthday countdown, and life milestones.">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="age-calculator.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⏳</text></svg>">
+</head>
+<body>
+  <div class="ambient-glow" aria-hidden="true"></div>
+
+  <!-- App Header -->
+  <header class="app-header">
+    <a href="index.html" class="brand-badge" aria-label="Precision Age Calculator Home">
+      <div class="brand-icon" aria-hidden="true">⏳</div>
+      <div class="brand-title">Chronos Age</div>
+    </a>
+    <div class="header-actions">
+      <button id="theme-toggle-btn" class="icon-btn" aria-label="Toggle dark/light theme" title="Toggle theme">
+        <span id="theme-icon" aria-hidden="true">☀️</span>
+      </button>
+      <a href="https://github.com/vanimendiratta/Age-Calculator" target="_blank" rel="noopener noreferrer" class="icon-btn" aria-label="View source code on GitHub" title="GitHub Repository">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+        </svg>
+      </a>
+    </div>
+  </header>
+
+  <!-- Main Calculator Card -->
+  <main class="app-main">
+    <div class="calculator-card">
+      <div class="hero-headline">
+        <h1>Precision Age & Life Analytics</h1>
+        <p>Calculate your exact chronological age in calendar-accurate years, months, and days, explore milestones, and track your next birthday.</p>
+      </div>
+
+      <div class="calculator-form">
+        <!-- Form Inputs Grid -->
+        <div class="input-grid" id="input-grid">
+          <!-- Date of Birth Input -->
+          <div class="form-group">
+            <label for="dob-input" class="form-label">
+              <span>Date of Birth</span> <span class="req" aria-hidden="true">*</span>
+            </label>
+            <div class="date-input-wrapper">
+              <input type="date" id="dob-input" class="date-input" required aria-required="true" aria-label="Select your Date of Birth">
+            </div>
+          </div>
+
+          <!-- Target Date Input (Hidden by default unless toggled) -->
+          <div class="form-group" id="target-date-group" style="display: none;">
+            <label for="target-date-input" class="form-label">
+              <span>Age On Specific Date</span>
+            </label>
+            <div class="date-input-wrapper">
+              <input type="date" id="target-date-input" class="date-input" aria-label="Select target calculation date">
+            </div>
+          </div>
+        </div>
+
+        <!-- Target Date Switch -->
+        <div class="target-toggle-wrapper">
+          <label class="toggle-label" for="target-toggle">
+            <span class="switch">
+              <input type="checkbox" id="target-toggle">
+              <span class="slider" aria-hidden="true"></span>
+            </span>
+            <span>Calculate age as of a specific custom date</span>
+          </label>
+        </div>
+
+        <!-- Quick Presets -->
+        <div class="presets-group" role="group" aria-label="Quick date presets">
+          <span class="presets-label">Presets:</span>
+          <button type="button" class="preset-chip" data-preset="today">Born Today</button>
+          <button type="button" class="preset-chip" data-preset="2000">Jan 1, 2000</button>
+          <button type="button" class="preset-chip" data-preset="clear">Clear Form</button>
+        </div>
+
+        <!-- Inline Notification Banner -->
+        <div id="notification-banner" class="notification-banner" role="alert" aria-live="polite">
+          <span aria-hidden="true">⚠️</span>
+          <span id="notification-text">Please select your date of birth.</span>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="button-row">
+          <button type="button" id="calculate-btn" class="btn-primary" aria-label="Calculate chronological age">
+            <span aria-hidden="true">✨</span> Calculate Age
+          </button>
+          <button type="button" id="reset-btn" class="btn-secondary" aria-label="Reset form inputs">
+            Reset
+          </button>
+        </div>
+      </div>
+
+      <!-- Results Showcase Section -->
+      <section id="results-section" class="results-section" aria-live="polite" aria-label="Calculated Age Results">
+        <!-- Birthday Celebration Announcement -->
+        <div id="birthday-banner" class="birthday-celebration">
+          <h3>🎂 Happy Birthday!</h3>
+          <p>Wishing you an incredible year ahead as you celebrate your milestone today!</p>
+        </div>
+
+        <!-- Primary Age Pill Cards -->
+        <div class="age-cards-grid">
+          <div class="age-stat-card">
+            <div class="stat-number" id="years-val">0</div>
+            <div class="stat-unit">Years</div>
+          </div>
+          <div class="age-stat-card">
+            <div class="stat-number" id="months-val">0</div>
+            <div class="stat-unit">Months</div>
+          </div>
+          <div class="age-stat-card">
+            <div class="stat-number" id="days-val">0</div>
+            <div class="stat-unit">Days</div>
+          </div>
+        </div>
+
+        <!-- Secondary Insights Grid -->
+        <div class="insights-grid">
+          <!-- Card 1: Next Birthday Countdown -->
+          <div class="insight-card">
+            <div class="insight-header">
+              <span class="icon" aria-hidden="true">🎯</span>
+              <span>Next Birthday Countdown</span>
+            </div>
+            <div class="insight-body">
+              <div class="metric-row">
+                <span class="metric-label">Time Remaining</span>
+                <span class="metric-value" id="next-bday-days">—</span>
+              </div>
+              <div class="metric-row">
+                <span class="metric-label">Exact Breakdown</span>
+                <span class="metric-value" id="next-bday-detail">—</span>
+              </div>
+              <div class="metric-row">
+                <span class="metric-label">Falls On</span>
+                <span class="metric-value" id="next-bday-weekday">—</span>
+              </div>
+              <div class="countdown-progress-bar" title="Progress towards next birthday" aria-hidden="true">
+                <div id="bday-progress-bar" class="countdown-progress-fill" style="width: 0%;"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 2: Total Time Lived -->
+          <div class="insight-card">
+            <div class="insight-header">
+              <span class="icon" aria-hidden="true">⏳</span>
+              <span>Total Lifetime Metrics</span>
+            </div>
+            <div class="insight-body">
+              <div class="metric-row">
+                <span class="metric-label">Total Days Lived</span>
+                <span class="metric-value" id="total-days-val">—</span>
+              </div>
+              <div class="metric-row">
+                <span class="metric-label">Total Weeks Lived</span>
+                <span class="metric-value" id="total-weeks-val">—</span>
+              </div>
+              <div class="metric-row">
+                <span class="metric-label">Total Hours Lived</span>
+                <span class="metric-value" id="total-hours-val">—</span>
+              </div>
+              <div class="metric-row">
+                <span class="metric-label">Total Minutes Lived</span>
+                <span class="metric-value" id="total-minutes-val">—</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 3: Physiological Milestones -->
+          <div class="insight-card">
+            <div class="insight-header">
+              <span class="icon" aria-hidden="true">💓</span>
+              <span>Physiological Estimates</span>
+            </div>
+            <div class="insight-body">
+              <div class="metric-row">
+                <span class="metric-label">Estimated Heartbeats</span>
+                <span class="metric-value" id="heartbeats-val">—</span>
+              </div>
+              <div class="metric-row">
+                <span class="metric-label">Estimated Breaths</span>
+                <span class="metric-value" id="breaths-val">—</span>
+              </div>
+              <div class="metric-row">
+                <span class="metric-label">Baseline Metric</span>
+                <span class="metric-value">~72 bpm / 16 bpm</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 4: Astrological & Cultural Dossier -->
+          <div class="insight-card">
+            <div class="insight-header">
+              <span class="icon" aria-hidden="true">🌟</span>
+              <span>Astrological & Birth Dossier</span>
+            </div>
+            <div class="insight-body">
+              <div class="metric-row">
+                <span class="metric-label">Day of Week Born</span>
+                <span class="metric-value" id="day-born-val">—</span>
+              </div>
+              <div class="metric-row">
+                <span class="metric-label">Western Zodiac</span>
+                <span class="metric-value" id="western-zodiac-val">—</span>
+              </div>
+              <div class="metric-row">
+                <span class="metric-label">Chinese Zodiac</span>
+                <span class="metric-value" id="chinese-zodiac-val">—</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Copy Summary Action -->
+        <div class="results-actions">
+          <button type="button" id="copy-summary-btn" class="copy-btn" aria-label="Copy age breakdown summary to clipboard">
+            <span aria-hidden="true">📋</span> Copy Life Summary
+          </button>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- App Footer -->
+  <footer class="app-footer">
+    <p>Crafted with calendar precision & modern web standards by <strong>Vani Mendiratta</strong>.</p>
+    <div class="footer-links">
+      <a href="https://github.com/vanimendiratta/Age-Calculator" target="_blank" rel="noopener noreferrer">Source Code</a>
+      <span>•</span>
+      <a href="https://github.com/vanimendiratta/Age-Calculator/blob/main/LICENSE" target="_blank" rel="noopener noreferrer">MIT License</a>
+      <span>•</span>
+      <a href="https://github.com/vanimendiratta/Age-Calculator/issues" target="_blank" rel="noopener noreferrer">Report Issue</a>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script type="module" src="src/app.js"></script>
+</body>
+</html>
